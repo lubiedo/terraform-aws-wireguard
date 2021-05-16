@@ -33,6 +33,7 @@ variable "aws_region" {
 }
 variable "client_ip" {
   type = string
+  default = "0.0.0.0/0"
 }
 variable "wgclient" {
   type = string
@@ -49,8 +50,6 @@ provider "aws" {
     }
   }
 }
-
-data "aws_region" "current" {}
 
 resource "tls_private_key" "wireguard_ssh_privkey" {
   algorithm = "RSA"

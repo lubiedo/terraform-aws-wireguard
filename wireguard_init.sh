@@ -1,5 +1,6 @@
 #!/bin/bash
 CLIENTPUB=$1
+WGPORT=$(((RANDOM%65534)+1))
 
 # deal with Ubuntu/AWS dns
 systemctl disable systemd-resolved.service ; service systemd-resolved stop
@@ -15,7 +16,7 @@ cat <<EOCONF > /etc/wireguard/wg0.conf
 [Interface]
 Address = 10.0.0.2/24
 SaveConfig = true
-ListenPort = 51820
+ListenPort = ${WGPORT}
 PrivateKey = ${SERVERPRI}
 DNS = 1.1.1.1
 PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
@@ -30,7 +31,7 @@ echo "Server's peer config for clients:"
 cat <<EOCLIENTCONF
 [Peer]
 PublicKey = $(cat server-pub)
-Endpoint = $(curl ifconfig.io/ip):51820
+Endpoint = $(curl ifconfig.io/ip):${WGPORT}
 AllowedIPs = 0.0.0.0/0, ::/0
 EOCLIENTCONF
 
