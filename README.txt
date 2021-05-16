@@ -1,3 +1,6 @@
+Usage
+=====
+
 Setup the secrets:
 locals {
   aws_access_key = "<YOUR_ACCESS_KEY>"
@@ -18,6 +21,15 @@ null_resource.wireguard_install (remote-exec): PublicKey =
 ddwzaD8eSDWMrrdI0LkdYTBs2DIAPe6KVos0y/eFhR7jU=
 null_resource.wireguard_install (remote-exec): Endpoint = 34.242.250.171:51820
 null_resource.wireguard_install (remote-exec): AllowedIPs = 0.0.0.0/0, ::/0
+
+Terraform variables:
+  * wgclient (required)
+  * client_ip (optional)
+  * aws_region (optional)
+Check out the description of each one to know their purpose.
+
+Troubleshooting
+===============
 
 In case you want to connect to the server you can use `terraform output --json`
 and SSH:
