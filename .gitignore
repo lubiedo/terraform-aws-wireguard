@@ -1,7 +1,7 @@
 # terraform
 secrets.tf
 .terraform*
-terraform*
+terraform.*
 *.plan
 
 # private
