@@ -172,6 +172,13 @@ resource "aws_instance" "wireguard_ec2" {
     aws_security_group.wireguard_sg.id
   ]
 
+  lifecycle {
+    create_before_destroy = true
+    ignore_changes = [
+      ami,
+    ]
+  }
+
   depends_on = [
     aws_security_group.wireguard_sg,
     aws_key_pair.wireguard_ssh_pubkey,
